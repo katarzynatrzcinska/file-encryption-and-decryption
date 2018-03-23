@@ -24,10 +24,11 @@
         <Button x:Name="buttonNext" Content="Dalej &gt;" HorizontalAlignment="Left" Margin="479,409,0,0" VerticalAlignment="Top" Width="116" Height="35" Click="buttonNext_Click"/>
         <Label x:Name="labelLogin" Content="Login: " HorizontalAlignment="Left" Margin="347,122,0,0" VerticalAlignment="Top" IsEnabled="False"/>
         <Label x:Name="labelPassword" Content="Hasło: " HorizontalAlignment="Left" Margin="347,164,0,0" VerticalAlignment="Top" IsEnabled="False"/>
-        <TextBox x:Name="textBoxLogin" HorizontalAlignment="Left" Height="23" Margin="397,125,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" FontStyle="Italic" FontWeight="Light" IsEnabled="False"/>
-        <TextBox x:Name="textBoxPassword" HorizontalAlignment="Left" Height="23" Margin="398,164,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" FontStyle="Italic" IsEnabled="False" />
+        <TextBox x:Name="textBoxLogin" HorizontalAlignment="Left" Height="23" Margin="398,124,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" FontStyle="Italic" FontWeight="Light" IsEnabled="False"/>
+        <PasswordBox x:Name="textBoxPassword" MaxLength="20" HorizontalAlignment="Left" Height="23" Margin="398,164,0,0" VerticalAlignment="Top" Width="198" IsEnabled="False" />
+        <TextBox x:Name="textBoxVisiblePassword" Visibility="Hidden" HorizontalAlignment="Left" Height="23" Margin="397,164,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" FontStyle="Italic" FontWeight="Light" IsEnabled="False"/>
         <Button x:Name="buttonAddReceiver" Content="Dodaj" HorizontalAlignment="Left" Margin="480,232,0,0" VerticalAlignment="Top" Width="116" Height="35" Click="buttonAdd_Click" IsEnabled="False"/>
-        <CheckBox x:Name="checkBoxShowPassword" Content="Pokaż hasło" HorizontalAlignment="Left" Margin="398,201,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+        <CheckBox x:Name="checkBoxShowPassword" Content="Pokaż hasło" HorizontalAlignment="Left" Margin="398,201,0,0" VerticalAlignment="Top" IsEnabled="False" Checked="ShowPassword" Unchecked="HidePassword"/>
         <Label x:Name="labelError" Content="" HorizontalAlignment="Left" Margin="347,91,0,0" VerticalAlignment="Top" Width="248" Foreground="Red"/>
         <Label x:Name="labelNewReceiver" Content="Dodaj nowego odbiorcę:" HorizontalAlignment="Left" Margin="377,43,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Width="206" IsEnabled="False"/>
         <Button x:Name="buttonAddNewReceiver" Content="Dodaj nowego &#xD;&#xA;    odbiorcę" HorizontalAlignment="Left" Margin="122,409,0,0" VerticalAlignment="Top" Width="116" Height="35" Click="buttonAddNewReceipher_Click"/>

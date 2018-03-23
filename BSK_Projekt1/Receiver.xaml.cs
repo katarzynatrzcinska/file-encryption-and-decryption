@@ -66,15 +66,15 @@ namespace BSK_Projekt1
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
             labelError.Content = "";
-            if (textBoxLogin.Text.Length.Equals(0) || textBoxPassword.Text.Length.Equals(0))
+            if (textBoxLogin.Text.Length.Equals(0) || textBoxPassword.Password.Length.Equals(0))
                 labelError.Content = "Wpisz login i hasło!";
-            if (!textBoxLogin.Text.Length.Equals(0) && !textBoxPassword.Text.Length.Equals(0))
+            if (!textBoxLogin.Text.Length.Equals(0) && !textBoxPassword.Password.Length.Equals(0))
             {
                 receivers.Add(textBoxLogin.Text.ToString());
                 listBox.ItemsSource = receivers;
                 listBox.Items.Refresh();
                 textBoxLogin.Text = string.Empty;
-                textBoxPassword.Text = string.Empty;
+                textBoxPassword.Password = string.Empty;
                 setLabels(false);
             }
 
@@ -129,6 +129,20 @@ namespace BSK_Projekt1
                 listBoxSelected.ItemsSource = chosenReceivers;
                 listBoxSelected.Items.Refresh();
             }
+        }
+
+        private void HidePassword(object sender, RoutedEventArgs e)
+        {
+            textBoxVisiblePassword.Visibility = Visibility.Hidden;
+            textBoxPassword.Visibility = Visibility.Visible;
+            textBoxVisiblePassword.Text = "";
+        }
+
+        private void ShowPassword(object sender, RoutedEventArgs e)
+        {
+            textBoxVisiblePassword.Visibility = Visibility.Visible;
+            textBoxPassword.Visibility = Visibility.Hidden;
+            textBoxVisiblePassword.Text = textBoxPassword.Password;
         }
     }
 }
