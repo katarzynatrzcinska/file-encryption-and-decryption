@@ -23,21 +23,16 @@ namespace BSK_Projekt1
     {
         List<string> receivers;
         List<string> chosenReceivers;
-        Dictionary<string, byte[]> loginCredentials = new Dictionary<string, byte[]>();
         public Receiver()
         {
             InitializeComponent();
             
             chosenReceivers = new List<string>();
-
             this.Top = 100;
             this.Left = 350;
-            SHA256 sha256 = SHA256.Create();
-            loginCredentials.Add("Użytkownik #1", sha256.ComputeHash(Encoding.ASCII.GetBytes("1234"))); //domyślni użytkownicy do testów
-            loginCredentials.Add("Użytkownik #2", sha256.ComputeHash(Encoding.ASCII.GetBytes("12345")));
-            loginCredentials.Add("Użytkownik #3", sha256.ComputeHash(Encoding.ASCII.GetBytes("123456")));
+            
             receivers = new List<string>();
-            foreach (string login in loginCredentials.Keys)
+            foreach (string login in UsersSingleton.Instance.Users.Keys)
                 receivers.Add(login);
 
             listBox.ItemsSource = receivers;
@@ -52,7 +47,7 @@ namespace BSK_Projekt1
             }
             else
             {
-                Encipher en = new Encipher();
+                Encipher en = new Encipher(chosenReceivers);
                 en.Show();
                 this.Close();
             }
@@ -76,7 +71,7 @@ namespace BSK_Projekt1
             {
                 byte[] password = Encoding.ASCII.GetBytes(textBoxPassword.Password);
                 byte[] passHash = sha256.ComputeHash(password);
-                loginCredentials.Add(textBoxLogin.Text.ToString(), passHash);
+                UsersSingleton.Instance.Users.Add(textBoxLogin.Text.ToString(), passHash);
                 receivers.Add(textBoxLogin.Text.ToString());
                 listBox.ItemsSource = receivers;
                 listBox.Items.Refresh();
@@ -99,7 +94,7 @@ namespace BSK_Projekt1
             buttonCancelAdding.IsEnabled = val;
         }
 
-        private void buttonAddNewReceipher_Click(object sender, RoutedEventArgs e)
+        private void buttonAddNewReceiver_Click(object sender, RoutedEventArgs e)
         {
             setLabels(true);
         }
@@ -111,7 +106,7 @@ namespace BSK_Projekt1
             setLabels(false);
         }
 
-        private void buttonAddRecepiver_Click(object sender, RoutedEventArgs e)
+        private void buttonAddReceiver_Click(object sender, RoutedEventArgs e)
         {
             if (listBox.SelectedItem != null)
             {
@@ -125,7 +120,7 @@ namespace BSK_Projekt1
 
         }
 
-        private void buttonDeleteRecepiver_Click(object sender, RoutedEventArgs e)
+        private void buttonDeleteReceiver_Click(object sender, RoutedEventArgs e)
         {
             if (listBoxSelected.SelectedItem != null)
             {

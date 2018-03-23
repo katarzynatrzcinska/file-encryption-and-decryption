@@ -23,10 +23,11 @@ namespace BSK_Projekt1
     /// </summary>
     public partial class Encipher : Window
     {
-        public Encipher()
+        List<string> receivers;
+        public Encipher(List<string> chosenReceivers)
         {
             InitializeComponent();
-
+            receivers = chosenReceivers;
             this.Top = 100;
             this.Left = 350;
         }
@@ -56,7 +57,6 @@ namespace BSK_Projekt1
 
         private void buttonChooseFile_Click(object sender, RoutedEventArgs e)
         {
-            string path;
             OpenFileDialog file = new OpenFileDialog();
             file.ShowDialog();
             textBoxChosenFile.Text = file.SafeFileName.ToString();

@@ -31,10 +31,10 @@
         <CheckBox x:Name="checkBoxShowPassword" Content="Pokaż hasło" HorizontalAlignment="Left" Margin="398,201,0,0" VerticalAlignment="Top" IsEnabled="False" Checked="ShowPassword" Unchecked="HidePassword"/>
         <Label x:Name="labelError" Content="" HorizontalAlignment="Left" Margin="347,91,0,0" VerticalAlignment="Top" Width="248" Foreground="Red"/>
         <Label x:Name="labelNewReceiver" Content="Dodaj nowego odbiorcę:" HorizontalAlignment="Left" Margin="377,43,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Width="206" IsEnabled="False"/>
-        <Button x:Name="buttonAddNewReceiver" Content="Dodaj nowego &#xD;&#xA;    odbiorcę" HorizontalAlignment="Left" Margin="122,409,0,0" VerticalAlignment="Top" Width="116" Height="35" Click="buttonAddNewReceipher_Click"/>
+        <Button x:Name="buttonAddNewReceiver" Content="Dodaj nowego &#xD;&#xA;    odbiorcę" HorizontalAlignment="Left" Margin="122,409,0,0" VerticalAlignment="Top" Width="116" Height="35" Click="buttonAddNewReceiver_Click"/>
         <Button x:Name="buttonCancelAdding" Content="Anuluj" HorizontalAlignment="Left" Margin="358,232,0,0" VerticalAlignment="Top" Width="116" Height="35" Click="buttonCancelAddingReceiver_Click" IsEnabled="False"/>
         <ListBox x:Name="listBoxSelected" HorizontalAlignment="Left" Height="125" Margin="55,250,0,0" VerticalAlignment="Top" Width="255" Background="#FFF1F1F1" SelectedIndex="0" />
-        <Button x:Name="buttonAddNewReceiver_Copy" Content="" HorizontalAlignment="Left" Margin="191,218,0,0" VerticalAlignment="Top" Width="21" Height="32" Click="buttonAddRecepiver_Click" RenderTransformOrigin="0.5,0.5" BorderBrush="#FFD4D3D3" Foreground="White">
+        <Button x:Name="buttonAddNewReceiver_Copy" Content="" HorizontalAlignment="Left" Margin="191,218,0,0" VerticalAlignment="Top" Width="21" Height="32" Click="buttonAddReceiver_Click" RenderTransformOrigin="0.5,0.5" BorderBrush="#FFD4D3D3" Foreground="White">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type ButtonBase}">
                     <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
@@ -73,7 +73,7 @@
             </Button.Background>
         </Button>
         <Label x:Name="labelErrorNoReceivers" Content="" HorizontalAlignment="Left" Height="29" Margin="55,375,0,0" VerticalAlignment="Top" Width="255" Foreground="Red"/>
-        <Button x:Name="buttonDeleteNewReceiver" Content="" HorizontalAlignment="Left" Margin="150,218,0,0" VerticalAlignment="Top" Width="21" Height="32" Click="buttonDeleteRecepiver_Click" RenderTransformOrigin="0.5,0.5" BorderBrush="#FFD4D3D3" Foreground="White">
+        <Button x:Name="buttonDeleteNewReceiver" Content="" HorizontalAlignment="Left" Margin="150,218,0,0" VerticalAlignment="Top" Width="21" Height="32" Click="buttonDeleteReceiver_Click" RenderTransformOrigin="0.5,0.5" BorderBrush="#FFD4D3D3" Foreground="White">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type ButtonBase}">
                     <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">

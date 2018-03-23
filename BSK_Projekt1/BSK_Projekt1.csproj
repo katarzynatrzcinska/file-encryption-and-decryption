@@ -67,6 +67,7 @@
     <Compile Include="Receiver.xaml.cs">
       <DependentUpon>Receiver.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UsersSingleton.cs" />
     <Page Include="Decipher.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
