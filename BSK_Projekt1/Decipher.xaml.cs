@@ -57,8 +57,8 @@ namespace BSK_Projekt1
                 labelNoPassword.Content = "Wpisz hasło!";
             if (!textBoxChosenName.Text.Length.Equals(0) && !textBoxChosenFile.Text.Length.Equals(0) && !textBoxPassword.Text.Length.Equals(0))
             {
-                Processing pr = new Processing();
-                pr.ShowDialog();
+                //Processing pr = new Processing();
+                //pr.ShowDialog();
             }
         }
 

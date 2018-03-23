@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -21,12 +23,13 @@ namespace BSK_Projekt1
     public partial class Processing : Window
     {
         Boolean done = true;
-        public Processing()
+        public Processing(List<string> receivers, FileInfo fileToEncrypt, string mode, string outputName)
         {
             InitializeComponent();
-
             this.Top = 270;
             this.Left = 480;
+            Encoder encoder = new Encoder(receivers, fileToEncrypt, mode, outputName);
+            encoder.Encode(this.progressBar);
         }
 
         private void CloseAllWindows()

@@ -3,7 +3,9 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,10 +26,17 @@ namespace BSK_Projekt1
     public partial class Encipher : Window
     {
         List<string> receivers;
+        FileInfo fileToEncrypt;
+        List<RadioButton> modeButtons;
         public Encipher(List<string> chosenReceivers)
         {
             InitializeComponent();
             receivers = chosenReceivers;
+            modeButtons = new List<RadioButton>();
+            modeButtons.Add(modeRadioButtonCBC);
+            modeButtons.Add(modeRadioButtonECB);
+            modeButtons.Add(modeRadioButtonCFB);
+            modeButtons.Add(modeRadioButtonOFB);
             this.Top = 100;
             this.Left = 350;
         }
@@ -41,10 +50,13 @@ namespace BSK_Projekt1
                 labelErrorsNoName.Content = "Wpisz nazwę pliku wynikowego!";
             if (textBoxChosenFile.Text.Length.Equals(0))
                 labelErrorsNoFile.Content = "Wybierz plik do szyfrowania!";
-            else if (!textBoxChosenName.Text.Length.Equals(0) && !textBoxChosenFile.Text.Length.Equals(0))
+            else if (!textBoxChosenName.Text.Length.Equals(0) && !textBoxChosenFile.Text.Length.Equals(0) && fileToEncrypt != null)
             {
-                Processing pr = new Processing();
-                pr.ShowDialog();
+                RadioButton checkedButton = modeButtons.FirstOrDefault(r => r.IsChecked.Equals(true));
+                Processing processing = new Processing(receivers, fileToEncrypt, (string)checkedButton.Content, textBoxChosenName.Text);
+                processing.ShowDialog();
+                //Encoder encoder = new Encoder(receivers, fileToEncrypt, (string)checkedButton.Content, textBoxChosenName.Text);
+                //encoder.Encode();
             }
         }
 
@@ -60,6 +72,8 @@ namespace BSK_Projekt1
             OpenFileDialog file = new OpenFileDialog();
             file.ShowDialog();
             textBoxChosenFile.Text = file.SafeFileName.ToString();
+            string path = file.FileName;
+            fileToEncrypt = new FileInfo(path);
          }
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
