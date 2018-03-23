@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,20 +23,22 @@ namespace BSK_Projekt1
     {
         List<string> receivers;
         List<string> chosenReceivers;
-
+        Dictionary<string, byte[]> loginCredentials = new Dictionary<string, byte[]>();
         public Receiver()
         {
             InitializeComponent();
-
+            
             chosenReceivers = new List<string>();
 
             this.Top = 100;
             this.Left = 350;
-
+            SHA256 sha256 = SHA256.Create();
+            loginCredentials.Add("Użytkownik #1", sha256.ComputeHash(Encoding.ASCII.GetBytes("1234"))); //domyślni użytkownicy do testów
+            loginCredentials.Add("Użytkownik #2", sha256.ComputeHash(Encoding.ASCII.GetBytes("12345")));
+            loginCredentials.Add("Użytkownik #3", sha256.ComputeHash(Encoding.ASCII.GetBytes("123456")));
             receivers = new List<string>();
-            receivers.Add("Użytkownik #1");
-            receivers.Add("Użytkownik #2");
-            receivers.Add("Użytkownik #3");
+            foreach (string login in loginCredentials.Keys)
+                receivers.Add(login);
 
             listBox.ItemsSource = receivers;
             listBox.SelectedIndex = 0;
@@ -65,11 +68,15 @@ namespace BSK_Projekt1
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
+            SHA256 sha256 = SHA256.Create();
             labelError.Content = "";
-            if (textBoxLogin.Text.Length.Equals(0) || textBoxPassword.Password.Length.Equals(0))
-                labelError.Content = "Wpisz login i hasło!";
-            if (!textBoxLogin.Text.Length.Equals(0) && !textBoxPassword.Password.Length.Equals(0))
+            if (textBoxLogin.Text.Length.Equals(0) || textBoxPassword.Password.Length<4)
+                labelError.Content = "Wpisz login i hasło (co najmniej 4 znaki)!";
+            if (!textBoxLogin.Text.Length.Equals(0) && textBoxPassword.Password.Length >=4)
             {
+                byte[] password = Encoding.ASCII.GetBytes(textBoxPassword.Password);
+                byte[] passHash = sha256.ComputeHash(password);
+                loginCredentials.Add(textBoxLogin.Text.ToString(), passHash);
                 receivers.Add(textBoxLogin.Text.ToString());
                 listBox.ItemsSource = receivers;
                 listBox.Items.Refresh();
