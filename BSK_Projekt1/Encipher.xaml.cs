@@ -53,7 +53,26 @@ namespace BSK_Projekt1
             else if (!textBoxChosenName.Text.Length.Equals(0) && !textBoxChosenFile.Text.Length.Equals(0) && fileToEncrypt != null)
             {
                 RadioButton checkedButton = modeButtons.FirstOrDefault(r => r.IsChecked.Equals(true));
-                Processing processing = new Processing(receivers, fileToEncrypt, (string)checkedButton.Content, textBoxChosenName.Text);
+                CipherMode mode;
+                switch ((string)checkedButton.Content)
+                {
+                    case "ECB":
+                        mode = CipherMode.ECB;
+                        break;
+                    case "CBC":
+                        mode = CipherMode.CBC;
+                        break;
+                    case "CFB":
+                        mode = CipherMode.CFB;
+                        break;
+                    case "OFB":
+                        mode = CipherMode.OFB;
+                        break;
+                    default:
+                        mode = CipherMode.ECB;
+                        break;
+                }
+                Processing processing = new Processing(receivers, fileToEncrypt, mode, textBoxChosenName.Text);
                 processing.ShowDialog();
                 //Encoder encoder = new Encoder(receivers, fileToEncrypt, (string)checkedButton.Content, textBoxChosenName.Text);
                 //encoder.Encode();

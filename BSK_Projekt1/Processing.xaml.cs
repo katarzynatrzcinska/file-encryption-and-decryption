@@ -23,7 +23,7 @@ namespace BSK_Projekt1
     public partial class Processing : Window
     {
         Boolean done = true;
-        public Processing(List<string> receivers, FileInfo fileToEncrypt, string mode, string outputName)
+        public Processing(List<string> receivers, FileInfo fileToEncrypt, System.Security.Cryptography.CipherMode mode, string outputName)
         {
             InitializeComponent();
             this.Top = 270;
