@@ -29,7 +29,7 @@ namespace BSK_Projekt1
             this.Top = 270;
             this.Left = 480;
             Encoder encoder = new Encoder(receivers, fileToEncrypt, mode, outputName);
-            encoder.Encode(this.progressBar);
+            encoder.EncodeFile(this.progressBar);
         }
 
         private void CloseAllWindows()

@@ -71,7 +71,7 @@ namespace BSK_Projekt1
             {
                 byte[] password = Encoding.ASCII.GetBytes(textBoxPassword.Password);
                 byte[] passHash = sha256.ComputeHash(password);
-                UsersSingleton.Instance.Users.Add(textBoxLogin.Text.ToString(), passHash);
+                UsersSingleton.Instance.AddUser(textBoxLogin.Text.ToString(), passHash);
                 receivers.Add(textBoxLogin.Text.ToString());
                 listBox.ItemsSource = receivers;
                 listBox.Items.Refresh();
