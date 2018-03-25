@@ -69,15 +69,19 @@ namespace BSK_Projekt1
                 labelError.Content = "Wpisz login i hasło (co najmniej 4 znaki)!";
             if (!textBoxLogin.Text.Length.Equals(0) && textBoxPassword.Password.Length >=4)
             {
-                byte[] password = Encoding.ASCII.GetBytes(textBoxPassword.Password);
-                byte[] passHash = sha256.ComputeHash(password);
-                UsersSingleton.Instance.AddUser(textBoxLogin.Text.ToString(), passHash);
-                receivers.Add(textBoxLogin.Text.ToString());
-                listBox.ItemsSource = receivers;
-                listBox.Items.Refresh();
-                textBoxLogin.Text = string.Empty;
-                textBoxPassword.Password = string.Empty;
-                setLabels(false);
+                if (!UsersSingleton.Instance.Users.ContainsKey(textBoxLogin.Text))
+                {
+                    byte[] password = Encoding.ASCII.GetBytes(textBoxPassword.Password);
+                    byte[] passHash = sha256.ComputeHash(password);
+                    UsersSingleton.Instance.AddUser(textBoxLogin.Text.ToString(), passHash);
+                    receivers.Add(textBoxLogin.Text.ToString());
+                    listBox.ItemsSource = receivers;
+                    listBox.Items.Refresh();
+                    textBoxLogin.Text = string.Empty;
+                    textBoxPassword.Password = string.Empty;
+                    setLabels(false);
+                }
+                else labelError.Content = "Użytkownik o podanym loginie już istnieje!";
             }
 
         }
