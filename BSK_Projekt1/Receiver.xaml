@@ -1,9 +1,9 @@
-﻿<Window x:Class="BSK_Projekt1.Receiver"
+﻿<Window x:Class="FileEncryptionAndDecryption.Receiver"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BSK_Projekt1"
+        xmlns:local="clr-namespace:FileEncryptionAndDecryption"
         mc:Ignorable="d"
         Title="Cipher" Height="511.5" Width="673">
     <Grid>
@@ -20,14 +20,14 @@
         </Grid.Background>
         <Label x:Name="label" Content="     Wybierz odbiorców:                " HorizontalAlignment="Left" Margin="77,43,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Width="206"/>
         <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="125" Margin="55,91,0,0" VerticalAlignment="Top" Width="255" Background="#FFF1F1F1" SelectedIndex="0" />
-        <Button x:Name="buttonBack" Content="&lt; Wstecz" HorizontalAlignment="Left" Margin="358,409,0,0" VerticalAlignment="Top" Width="116" Height="35" Click="buttonBack_Click"/>
-        <Button x:Name="buttonNext" Content="Dalej &gt;" HorizontalAlignment="Left" Margin="479,409,0,0" VerticalAlignment="Top" Width="116" Height="35" Click="buttonNext_Click"/>
+        <Button x:Name="buttonBack" Content="&lt; Wstecz" HorizontalAlignment="Left" Margin="358,409,0,0" VerticalAlignment="Top" Width="116" Height="35" Click="ButtonBack_Click"/>
+        <Button x:Name="buttonNext" Content="Dalej &gt;" HorizontalAlignment="Left" Margin="479,409,0,0" VerticalAlignment="Top" Width="116" Height="35" Click="ButtonNext_Click"/>
         <Label x:Name="labelLogin" Content="Login: " HorizontalAlignment="Left" Margin="347,122,0,0" VerticalAlignment="Top" IsEnabled="False"/>
         <Label x:Name="labelPassword" Content="Hasło: " HorizontalAlignment="Left" Margin="347,164,0,0" VerticalAlignment="Top" IsEnabled="False"/>
         <TextBox x:Name="textBoxLogin" HorizontalAlignment="Left" Height="23" Margin="398,124,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" FontStyle="Italic" FontWeight="Light" IsEnabled="False"/>
         <PasswordBox x:Name="textBoxPassword" MaxLength="20" HorizontalAlignment="Left" Height="23" Margin="398,164,0,0" VerticalAlignment="Top" Width="198" IsEnabled="False" />
         <TextBox x:Name="textBoxVisiblePassword" Visibility="Hidden" HorizontalAlignment="Left" Height="23" Margin="397,164,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" FontStyle="Italic" FontWeight="Light" IsEnabled="False"/>
-        <Button x:Name="buttonAddReceiver" Content="Dodaj" HorizontalAlignment="Left" Margin="480,232,0,0" VerticalAlignment="Top" Width="116" Height="35" Click="buttonAdd_Click" IsEnabled="False"/>
+        <Button x:Name="buttonAddReceiver" Content="Dodaj" HorizontalAlignment="Left" Margin="480,232,0,0" VerticalAlignment="Top" Width="116" Height="35" Click="ButtonAdd_Click" IsEnabled="False"/>
         <CheckBox x:Name="checkBoxShowPassword" Content="Pokaż hasło" HorizontalAlignment="Left" Margin="398,201,0,0" VerticalAlignment="Top" IsEnabled="False" Checked="ShowPassword" Unchecked="HidePassword"/>
         <Label x:Name="labelError" Content="" HorizontalAlignment="Left" Margin="347,91,0,0" VerticalAlignment="Top" Width="248" Foreground="Red"/>
         <Label x:Name="labelNewReceiver" Content="Dodaj nowego odbiorcę:" HorizontalAlignment="Left" Margin="377,43,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Width="206" IsEnabled="False"/>
@@ -69,7 +69,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
             <Button.Background>
-                <ImageBrush ImageSource="arrow-19.png" Stretch="Uniform"/>
+                <ImageBrush ImageSource="resources\arrow-19.png" Stretch="Uniform"/>
             </Button.Background>
         </Button>
         <Label x:Name="labelErrorNoReceivers" Content="" HorizontalAlignment="Left" Height="29" Margin="55,375,0,0" VerticalAlignment="Top" Width="255" Foreground="Red"/>
@@ -106,7 +106,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
             <Button.Background>
-                <ImageBrush ImageSource="arrow-19.png" Stretch="Uniform"/>
+                <ImageBrush ImageSource="resources\arrow-19.png" Stretch="Uniform"/>
             </Button.Background>
         </Button>
     </Grid>

@@ -1,35 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
-namespace BSK_Projekt1
+namespace FileEncryptionAndDecryption
 {
     /// <summary>
     /// Interaction logic for Processing.xaml
     /// </summary>
     public partial class Processing : Window
     {
-        Boolean done = true;
-        public Processing(List<string> receivers, FileInfo fileToEncrypt, System.Security.Cryptography.CipherMode mode, string outputName)
+        public Processing(List<string> receivers, FileInfo fileToEncrypt, string mode, string outputName, int feedbackSize)
         {
             InitializeComponent();
             this.Top = 270;
             this.Left = 480;
-            Encoder encoder = new Encoder(receivers, fileToEncrypt, mode, outputName);
-            encoder.EncodeFile(this.progressBar);
+            var encoder = new Cryptography.Encoder(receivers, fileToEncrypt, mode, outputName, feedbackSize);
+            encoder.EncodeFile(progressBar, processingLabel, buttonOK);
+        }
+
+        public Processing(FileInfo fileToDecrypt, string userName, string outputName)
+        {
+            InitializeComponent();
+            this.Top = 270;
+            this.Left = 480;
+            var decoder = new Cryptography.Decoder(fileToDecrypt, userName, outputName);
+            decoder.DecodeFile(progressBar, processingLabel, buttonOK);
         }
 
         private void CloseAllWindows()
@@ -38,20 +33,21 @@ namespace BSK_Projekt1
                 App.Current.Windows[intCounter].Close();
         }
 
-        private void buttonOK_Click(object sender, RoutedEventArgs e)
+        private void ButtonOK_Click(object sender, RoutedEventArgs e)
         {
-            if (done)
-            {
-                MainWindow mw = new MainWindow();
-                for (int intCounter = App.Current.Windows.Count - 1; intCounter >= 0; intCounter--)
-                    App.Current.Windows[intCounter].Hide();
-                mw.Show();
-            }
+            MainWindow mw = new MainWindow();
+            for (int intCounter = App.Current.Windows.Count - 1; intCounter >= 0; intCounter--)
+                App.Current.Windows[intCounter].Hide();
+            mw.Show();
         }
 
-        private void buttonCancel_Click(object sender, RoutedEventArgs e)
+        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+            for (int intCounter = App.Current.Windows.Count - 1; intCounter >= 0; intCounter--)
+                App.Current.Windows[intCounter].Hide();
+            MainWindow mw = new MainWindow();
+            mw.Show();
         }
 
      

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BSK_Projekt1
+namespace FileEncryptionAndDecryption
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -52,8 +52,8 @@ namespace BSK_Projekt1
             switch(chosenFunctionality)
             {
                 case encipher:
-                    Receiver reveiverWindow = new Receiver();
-                    reveiverWindow.Show();
+                    Receiver receiverWindow = new Receiver();
+                    receiverWindow.Show();
                     break;
                 case decipher:
                     Decipher decipherWindow = new Decipher();

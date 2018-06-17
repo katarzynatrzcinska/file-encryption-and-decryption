@@ -1,26 +1,19 @@
-﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
+﻿using FileEncryptionAndDecryption.Cryptography;
+using Microsoft.Win32;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
-namespace BSK_Projekt1
+namespace FileEncryptionAndDecryption
 {
     /// <summary>
     /// Interaction logic for Decipher.xaml
     /// </summary>
     public partial class Decipher : Window
     {
-        List<string> receivers = new List<string>();
+        private FileInfo fileToDecrypt;
         public Decipher()
         {
             InitializeComponent();
@@ -28,23 +21,18 @@ namespace BSK_Projekt1
             this.Top = 100;
             this.Left = 350;
 
-            receivers = new List<string>();
-            receivers.Add("Użytkownik #1");
-            receivers.Add("Użytkownik #2");
-            receivers.Add("Użytkownik #3");
-
-            listBox.ItemsSource = receivers;
+            listBox.ItemsSource = UsersSingleton.Instance.Users.Keys;
             listBox.SelectedIndex = 0;
         }
 
-        private void buttonBack_Click(object sender, RoutedEventArgs e)
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mw = new MainWindow();
             mw.Show();
             this.Close();
         }
 
-        private void buttonDecipher_Click(object sender, RoutedEventArgs e)
+        private void ButtonDecipher_Click(object sender, RoutedEventArgs e)
         {
             labelErrorsNoFile.Content = "";
             labelErrorsNoName.Content = "";
@@ -53,22 +41,55 @@ namespace BSK_Projekt1
                 labelErrorsNoName.Content = "Wpisz nazwę pliku wynikowego!"; 
             if (textBoxChosenFile.Text.Length.Equals(0))
                 labelErrorsNoFile.Content = "Wybierz plik do deszyfrowania!";
-            if (textBoxPassword.Text.Length.Equals(0))
+            if (textBoxPassword.Password.Length.Equals(0))
                 labelNoPassword.Content = "Wpisz hasło!";
-            if (!textBoxChosenName.Text.Length.Equals(0) && !textBoxChosenFile.Text.Length.Equals(0) && !textBoxPassword.Text.Length.Equals(0))
+            if (!textBoxChosenName.Text.Length.Equals(0) && !textBoxChosenFile.Text.Length.Equals(0) 
+                && !textBoxPassword.Password.Length.Equals(0))
             {
-                //Processing pr = new Processing();
-                //pr.ShowDialog();
+                if (fileToDecrypt != null)
+                {
+                    SHA256 sha256 = SHA256.Create();
+                    UsersSingleton.Instance.Users.TryGetValue(listBox.SelectedValue as string, out byte[] usersPassHash);
+                    byte[] enteredPassHash = sha256.ComputeHash(Encoding.Default.GetBytes(textBoxPassword.Password));
+                    if (enteredPassHash.SequenceEqual(usersPassHash))
+                    {
+                        Processing processing = new Processing(fileToDecrypt, listBox.SelectedValue as string, textBoxChosenName.Text);
+                        processing.ShowDialog();
+                    }
+                    else
+                    {
+                        labelNoPassword.Content = "Niepoprawne hasło!";
+                    }
+                }
             }
         }
 
-        private void buttonChooseFile_Click(object sender, RoutedEventArgs e)
+        private void ButtonChooseFile_Click(object sender, RoutedEventArgs e)
         {
-            string path;
             OpenFileDialog file = new OpenFileDialog();
             file.ShowDialog();
-            textBoxChosenFile.Text = file.SafeFileName.ToString();
+            
+            if (string.IsNullOrEmpty(file.FileName) == false)
+            {
+                textBoxChosenFile.Text = file.SafeFileName.ToString();
+                string path = file.FileName;
+                fileToDecrypt = new FileInfo(path);
+            }
         }
-        
+
+        private void HidePassword(object sender, RoutedEventArgs e)
+        {
+            textBoxVisiblePassword.Visibility = Visibility.Hidden;
+            textBoxPassword.Visibility = Visibility.Visible;
+            textBoxVisiblePassword.Text = "";
+        }
+
+        private void ShowPassword(object sender, RoutedEventArgs e)
+        {
+            textBoxVisiblePassword.Visibility = Visibility.Visible;
+            textBoxPassword.Visibility = Visibility.Hidden;
+            textBoxVisiblePassword.Text = textBoxPassword.Password;
+        }
+
     }
 }

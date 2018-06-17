@@ -1,14 +1,9 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
+﻿using FileEncryptionAndDecryption.Cryptography;
+using Newtonsoft.Json;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 
-namespace BSK_Projekt1
+namespace FileEncryptionAndDecryption
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -18,7 +13,7 @@ namespace BSK_Projekt1
         private void Application_Exit(object sender, ExitEventArgs e)
         {
             string json = JsonConvert.SerializeObject(UsersSingleton.Instance.Users, Formatting.Indented);
-            File.WriteAllText(Path.Combine(@"..\..\", "users.xml"), json);
+            File.WriteAllText(UsersSingleton.Instance.UsersList, json);
         }
     }
 }

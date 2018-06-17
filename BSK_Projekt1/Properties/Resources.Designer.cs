@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BSK_Projekt1.Properties
+namespace FileEncryptionAndDecryption.Properties
 {
 
 

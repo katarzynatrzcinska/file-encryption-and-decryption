@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FileEncryptionAndDecryption.Cryptography;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -14,7 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace BSK_Projekt1
+namespace FileEncryptionAndDecryption
 {
     /// <summary>
     /// Interaction logic for Receiver.xaml
@@ -39,7 +40,7 @@ namespace BSK_Projekt1
             listBox.SelectedIndex = 0;
         }
 
-        private void buttonNext_Click(object sender, RoutedEventArgs e)
+        private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
             if (chosenReceivers.Count().Equals(0))
             {
@@ -54,16 +55,15 @@ namespace BSK_Projekt1
         
         }
 
-        private void buttonBack_Click(object sender, RoutedEventArgs e)
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mw = new MainWindow();
             mw.Show();
             this.Close();
         }
 
-        private void buttonAdd_Click(object sender, RoutedEventArgs e)
+        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
-            SHA256 sha256 = SHA256.Create();
             labelError.Content = "";
             if (textBoxLogin.Text.Length.Equals(0) || textBoxPassword.Password.Length<4)
                 labelError.Content = "Wpisz login i hasło (co najmniej 4 znaki)!";
@@ -72,8 +72,7 @@ namespace BSK_Projekt1
                 if (!UsersSingleton.Instance.Users.ContainsKey(textBoxLogin.Text))
                 {
                     byte[] password = Encoding.ASCII.GetBytes(textBoxPassword.Password);
-                    byte[] passHash = sha256.ComputeHash(password);
-                    UsersSingleton.Instance.AddUser(textBoxLogin.Text.ToString(), passHash);
+                    UsersSingleton.Instance.AddUser(textBoxLogin.Text.ToString(), password);
                     receivers.Add(textBoxLogin.Text.ToString());
                     listBox.ItemsSource = receivers;
                     listBox.Items.Refresh();
